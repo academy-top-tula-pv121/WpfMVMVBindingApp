@@ -19,7 +19,8 @@ namespace WpfApp1
             }
             get => name; }
         public string Company 
-        { set
+        { 
+            set
             {
                 company = value;
                 OnPropertyChanged(nameof(Company));

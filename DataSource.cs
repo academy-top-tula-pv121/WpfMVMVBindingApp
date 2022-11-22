@@ -5,11 +5,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace WpfApp1
 {
     internal class DataSource : INotifyPropertyChanged
     {
+        // User
         private User userSelect;
 
         public User UserSelect
@@ -21,7 +23,47 @@ namespace WpfApp1
             }
             get => userSelect;
         }
+
+        // User Collection
         public ObservableCollection<User> Users { set; get; }
+
+        // Commands
+        // Add
+        private MyCommand? addCommand;
+        public MyCommand? AddCommand
+        {
+            get
+            {
+                return addCommand ?? (addCommand = new MyCommand(
+                    obj =>
+                    {
+                        User user = new User();
+                        Users.Insert(0, user);
+                        UserSelect = user;
+                    }
+                    ));
+            }
+        }
+
+        // Delete
+        private MyCommand? removeCommand;
+        public MyCommand? RemoveCommand
+        {
+            get
+            {
+                return removeCommand ?? (removeCommand = new MyCommand(
+                        obj =>
+                        {
+                            if(obj is User user)
+                            {
+                                Users.Remove(user);
+                            }
+                                
+                        },
+                        (obj) => Users.Count > 0 && (User)obj is not null
+                    ));
+            }
+        }
         public DataSource()
         {
             Users = new ObservableCollection<User>

@@ -12,21 +12,40 @@
             <ColumnDefinition Width="10"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" DataContext="{Binding UserSelect}">
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <TextBox Text="{Binding Company, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Button x:Name="btn" Click="btn_Click" Content="Press me"/>
+        <StackPanel>
+            <StackPanel Grid.Column="0" DataContext="{Binding UserSelect}">
+                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                     FontSize="20"/>
+                <TextBox Text="{Binding Company, UpdateSourceTrigger=PropertyChanged}"
+                     FontSize="20"/>
+            </StackPanel>
+            <Button Command="{Binding Path=AddCommand}" FontSize="20">Add</Button>
+            <Button Command="{Binding RemoveCommand}"
+                    CommandParameter="{Binding UserSelect}"
+                    FontSize="20"
+                    Margin="0,20,0,0">
+                Delete
+            </Button>
         </StackPanel>
+        
         <StackPanel Grid.Column="2">
             <ListBox
                 ItemsSource="{Binding Users}"
-                SelectedItem="{Binding UserSelect}">
+                SelectedItem="{Binding UserSelect}"
+                FontSize="20">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Path=Name}"/>
-                            <TextBlock Text="{Binding Path=Company}"/>
-                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="0.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                Text="{Binding Path=Name}"/>
+                            <TextBlock Grid.Column="2"
+                                Text="{Binding Path=Company}"/>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

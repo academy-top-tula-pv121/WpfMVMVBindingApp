@@ -20,19 +20,19 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        User user;
+        DataSource dataSource;
         public MainWindow()
         {
             InitializeComponent();
 
             
-            this.DataContext = new DataSource();
+            dataSource = new DataSource();
+            DataContext = dataSource;
         }
 
-        private void btn_Click(object sender, RoutedEventArgs e)
+        private void TextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ((DataSource)this.DataContext).Users[0].Name = "Kim";
-            ((DataSource)this.DataContext).Users.Add(new User("Peat", "Google"));
+            dataSource.AddCommand.Execute(new object());
         }
     }
 }
